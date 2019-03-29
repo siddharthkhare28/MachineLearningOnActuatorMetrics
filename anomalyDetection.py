@@ -15,6 +15,9 @@ def estimateGaussian(X):
     sigma2 = np.sum(tempSigma2, axis=0)/m
     return (mu, sigma2)
 
+def getCovariance(X):
+    return np.cov(data, rowvar=False)
+
 def calculateProbability(X, mean, cov):
     var = multivariate_normal(mean=[0,0], cov=[[1,0],[0,1]])
     p = var.pdf([1,0])
