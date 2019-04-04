@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy
 from scipy.stats import multivariate_normal
+%matplotlib inline
 
 def estimateGaussian(X):
     (m,n) = X.shape
@@ -16,8 +17,16 @@ def estimateGaussian(X):
     return (mu, sigma2)
 
 def getCovariance(X):
-    return np.cov(data, rowvar=False)
+    return np.cov(X, rowvar=False)
 
 def calculateProbability(X, mean, cov):
-    var = multivariate_normal(mean=[0,0], cov=[[1,0],[0,1]])
-    p = var.pdf([1,0])
+    var = multivariate_normal(mean, cov)
+    p = np.zeros(len(X))
+    for i in range(len(X)):
+	p[i] = var.pdf(X[i])
+    return p
+
+# Z = pd.read_csv('ActuatorData.csv')
+# Z.apply(pd.to_numeric, errors='coerce')
+Z = np.genfromtxt ('ActuatorData.csv', delimiter=",", dtype=int)
+
